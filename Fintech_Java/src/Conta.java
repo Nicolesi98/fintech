@@ -1,15 +1,14 @@
+import java.math.BigDecimal;
 import java.util.Random;
 
-public class Conta {
-    private int agencia;
-    private int numero;
-    private TipoConta tipoConta;
-    private double saldo;
+public class Conta{
+    protected int agencia;
+    protected int numero;
+    protected double saldo;
 
-    public Conta(TipoConta tipoConta) {
+    public Conta() {
         this.agencia = 2;
         this.numero = new Random().nextInt(100000) + 1;
-        this.tipoConta = tipoConta;
         this.saldo = 0.0;
     }
 
@@ -17,13 +16,4 @@ public class Conta {
         return saldo;
     }
 
-    @Override
-    public String toString() {
-        return "Conta{" +
-                "agencia=" + agencia +
-                ", numero=" + numero +
-                ", tipoConta=" + tipoConta +
-                ", saldo=" + saldo +
-                '}';
-    }
 }

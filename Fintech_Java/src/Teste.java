@@ -1,6 +1,6 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
+
+public class Teste {
+
     public static void main(String[] args) {
         Usuario usuario = new Usuario();
 
@@ -10,9 +10,9 @@ public class Main {
 
         login.doLogin();
 
-        Transacao transacao = new Transacao(100.0, usuario.getConta());
+        Deposito transacao = new Deposito(100.0, usuario.getConta());
 
-        transacao.depositar();
+        transacao.processar();
 
         Categoria categoria = new Categoria("Viagens");
 
@@ -22,5 +22,11 @@ public class Main {
 
         meta.adicionarValorAlcancado(1000.0);
 
+        Saque saque = new Saque(50.0, usuario.getConta());
+        saque.processar();
+
+        System.out.println("Seu saldo final é: R$"+usuario.getConta().consultaSaldo());
+
     }
+
 }

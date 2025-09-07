@@ -15,7 +15,7 @@ public class Usuario {
         this.email = email;
         this.senha = senha;
         this.dataCadastro = LocalDateTime.now();
-        this.conta = new Conta(TipoConta.CORRENTE);
+        this.conta = new ContaCorrente();
     }
 
     public void registrarMeta(Meta meta){
