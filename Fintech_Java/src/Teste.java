@@ -25,6 +25,9 @@ public class Teste {
         Saque saque = new Saque(50.0, usuario.getConta());
         saque.processar();
 
+        Saque saqueNovo = new Saque(20.0, usuario.getConta());
+        saqueNovo.cancelar();
+
         System.out.println("Seu saldo final é: R$"+usuario.getConta().consultaSaldo());
 
     }
