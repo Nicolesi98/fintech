@@ -70,7 +70,7 @@ public class ContaDao {
     }
 
     public void update(ContaEntity contaEditada) throws SQLException{
-
+        //pegar o delete como exemplo!
     }
 
     public void delete(ContaEntity contaExcluir) throws SQLException{
