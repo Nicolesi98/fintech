@@ -30,7 +30,7 @@ public class ContaDao {
     }
 
     public void insert(ContaEntity conta) throws SQLException{
-        String sql = "INSERT INTO LOCALDB.CONTA(AGENCIA, NUMERO, TIPO_CONTA) VALUES(?, ?, ?)";
+        String sql = "INSERT INTO RM565891.CONTA(AGENCIA, NUMERO, TIPO_CONTA) VALUES(?, ?, ?)";
         PreparedStatement stm = conexao.prepareStatement(sql);
         stm.setInt(1, conta.getAgencia());
         stm.setInt(2, conta.getNumero());
@@ -40,7 +40,7 @@ public class ContaDao {
     }
 
     public List<ContaEntity> getAll() throws SQLException,EntidadeNaoEcontradaException {
-        PreparedStatement stm = conexao.prepareStatement("SELECT * FROM LOCALDB.CONTA");
+        PreparedStatement stm = conexao.prepareStatement("SELECT * FROM RM565891.CONTA");
         ResultSet result = stm.executeQuery();
         List<ContaEntity> contas = new ArrayList<ContaEntity>();
         DateTimeFormatter formatador = new DateTimeFormatterBuilder()
@@ -70,11 +70,16 @@ public class ContaDao {
     }
 
     public void update(ContaEntity contaEditada) throws SQLException{
-        //pegar o delete como exemplo!
+        String sql = "UPDATE FROM RM565891.CONTA WHERE agencia = ? anda numero = ? ";
+        PreparedStatement stm = conexao.prepareStatement(sql);
+        stm.setInt(1, contaEditada.getAgencia());
+        stm.setInt(2, contaEditada.getNumero());
+        stm.executeUpdate();
+        System.out.println(contaEditada + "editada com sucesso!");
     }
 
     public void delete(ContaEntity contaExcluir) throws SQLException{
-        String sql = "DELETE FROM LOCALDB.CONTA WHERE agencia = ? and numero = ?";
+        String sql = "DELETE FROM RM565891.CONTA WHERE agencia = ? and numero = ?";
         PreparedStatement stm = conexao.prepareStatement(sql);
         stm.setInt(1, contaExcluir.getAgencia());
         stm.setInt(2, contaExcluir.getNumero());
