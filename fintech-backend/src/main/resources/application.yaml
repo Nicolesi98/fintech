@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: fintech-backend
+
+  datasource:
+    url: jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL
+    username: RM565891
+    password: 150998
+
+  jpa:
+    show-sql: true
+    properties.hibernate.default_schema: RM565891
