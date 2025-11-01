@@ -78,16 +78,12 @@ public class UsuarioController {
             @ApiResponse(responseCode = "404", description = "Usuário não encontrado")
     })
     public ResponseEntity<Usuario> updateUsuario(@PathVariable Long id, @RequestBody Usuario usuarioDetails) {
-        Optional<Usuario> usuario = usuarioService.findById(id);
-        if (usuario.isPresent()) {
-            Usuario updatedUsuario = usuario.get();
-            updatedUsuario.setNome(usuarioDetails.getNome());
-            updatedUsuario.setEmail(usuarioDetails.getEmail());
-            updatedUsuario.setSenha(usuarioDetails.getSenha());
-            return ResponseEntity.ok(usuarioService.save(updatedUsuario));
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return usuarioService.findById(id).map(usuario -> {
+            usuario.setNome(usuarioDetails.getNome());
+            usuario.setEmail(usuarioDetails.getEmail());
+            usuario.setSenha(usuarioDetails.getSenha());
+            return ResponseEntity.ok(usuarioService.save(usuario));
+        }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
@@ -97,7 +93,10 @@ public class UsuarioController {
             @ApiResponse(responseCode = "404", description = "Usuário não encontrado")
     })
     public ResponseEntity<Void> deleteUsuario(@PathVariable Long id) {
-        usuarioService.deleteById(id);
-        return ResponseEntity.noContent().build();
+        if (usuarioService.deleteById(id)) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

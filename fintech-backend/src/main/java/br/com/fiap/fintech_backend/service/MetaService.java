@@ -26,7 +26,11 @@ public class MetaService {
         return metaRepository.save(meta);
     }
 
-    public void deleteById(Long id) {
-        metaRepository.deleteById(id);
+    public boolean deleteById(Long id) {
+        if (metaRepository.existsById(id)) {
+            metaRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

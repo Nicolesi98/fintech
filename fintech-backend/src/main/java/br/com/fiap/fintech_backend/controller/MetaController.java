@@ -44,25 +44,24 @@ public class MetaController {
     @PutMapping("/{id}")
     @Operation(summary = "Atualiza uma meta existente")
     public ResponseEntity<Meta> updateMeta(@PathVariable Long id, @RequestBody Meta metaDetails) {
-        Optional<Meta> meta = metaService.findById(id);
-        if (meta.isPresent()) {
-            Meta updatedMeta = meta.get();
-            updatedMeta.setNome(metaDetails.getNome());
-            updatedMeta.setValorAlvo(metaDetails.getValorAlvo());
-            updatedMeta.setValorAtual(metaDetails.getValorAtual());
-            updatedMeta.setStatus(metaDetails.getStatus());
-            updatedMeta.setDataAlvo(metaDetails.getDataAlvo());
-            updatedMeta.setCategoria(metaDetails.getCategoria());
-            return ResponseEntity.ok(metaService.save(updatedMeta));
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return metaService.findById(id).map(meta -> {
+            meta.setNome(metaDetails.getNome());
+            meta.setValorAlvo(metaDetails.getValorAlvo());
+            meta.setValorAtual(metaDetails.getValorAtual());
+            meta.setStatus(metaDetails.getStatus());
+            meta.setDataAlvo(metaDetails.getDataAlvo());
+            meta.setCategoria(metaDetails.getCategoria());
+            return ResponseEntity.ok(metaService.save(meta));
+        }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Deleta uma meta")
     public ResponseEntity<Void> deleteMeta(@PathVariable Long id) {
-        metaService.deleteById(id);
-        return ResponseEntity.noContent().build();
+        if (metaService.deleteById(id)) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

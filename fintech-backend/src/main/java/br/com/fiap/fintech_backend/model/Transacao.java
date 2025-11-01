@@ -35,7 +35,7 @@ public class Transacao {
     @Schema(description = "Valor da transação", example = "50.00")
     private BigDecimal valor;
 
-    @NotBlank(message = "Tipo da transação não pode ser nulo")
+    @NotNull(message = "Tipo da transação não pode ser nulo")
     @Column(name = "TIPO_TRANSACAO", nullable = false)
     @Enumerated(EnumType.STRING)
     @Schema(description = "Tipo da transação", example = "DEBITO")

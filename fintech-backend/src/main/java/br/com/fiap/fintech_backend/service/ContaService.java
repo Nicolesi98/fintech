@@ -26,7 +26,11 @@ public class ContaService {
         return contaRepository.save(conta);
     }
 
-    public void deleteById(Long id) {
-        contaRepository.deleteById(id);
+    public boolean deleteById(Long id) {
+        if (contaRepository.existsById(id)) {
+            contaRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

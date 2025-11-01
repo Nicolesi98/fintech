@@ -44,21 +44,20 @@ public class CategoriaController {
     @PutMapping("/{id}")
     @Operation(summary = "Atualiza uma categoria existente")
     public ResponseEntity<Categoria> updateCategoria(@PathVariable Long id, @RequestBody Categoria categoriaDetails) {
-        Optional<Categoria> categoria = categoriaService.findById(id);
-        if (categoria.isPresent()) {
-            Categoria updatedCategoria = categoria.get();
-            updatedCategoria.setNomeCategoria(categoriaDetails.getNomeCategoria());
-            updatedCategoria.setTipoCategoria(categoriaDetails.getTipoCategoria());
-            return ResponseEntity.ok(categoriaService.save(updatedCategoria));
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return categoriaService.findById(id).map(categoria -> {
+            categoria.setNomeCategoria(categoriaDetails.getNomeCategoria());
+            categoria.setTipoCategoria(categoriaDetails.getTipoCategoria());
+            return ResponseEntity.ok(categoriaService.save(categoria));
+        }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Deleta uma categoria")
     public ResponseEntity<Void> deleteCategoria(@PathVariable Long id) {
-        categoriaService.deleteById(id);
-        return ResponseEntity.noContent().build();
+        if (categoriaService.deleteById(id)) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

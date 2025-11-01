@@ -44,23 +44,22 @@ public class ContaController {
     @PutMapping("/{id}")
     @Operation(summary = "Atualiza uma conta existente")
     public ResponseEntity<Conta> updateConta(@PathVariable Long id, @RequestBody Conta contaDetails) {
-        Optional<Conta> conta = contaService.findById(id);
-        if (conta.isPresent()) {
-            Conta updatedConta = conta.get();
-            updatedConta.setAgencia(contaDetails.getAgencia());
-            updatedConta.setNumero(contaDetails.getNumero());
-            updatedConta.setTipoConta(contaDetails.getTipoConta());
-            updatedConta.setSaldo(contaDetails.getSaldo());
-            return ResponseEntity.ok(contaService.save(updatedConta));
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return contaService.findById(id).map(conta -> {
+            conta.setAgencia(contaDetails.getAgencia());
+            conta.setNumero(contaDetails.getNumero());
+            conta.setTipoConta(contaDetails.getTipoConta());
+            conta.setSaldo(contaDetails.getSaldo());
+            return ResponseEntity.ok(contaService.save(conta));
+        }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Deleta uma conta")
     public ResponseEntity<Void> deleteConta(@PathVariable Long id) {
-        contaService.deleteById(id);
-        return ResponseEntity.noContent().build();
+        if (contaService.deleteById(id)) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

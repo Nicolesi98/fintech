@@ -42,7 +42,11 @@ public class UsuarioService {
                 .orElseThrow(() -> new RuntimeException(USUARIO_NAO_ENCONTRADO));
     }
 
-    public void deleteById(Long id) {
-        usuarioRepository.deleteById(id);
+    public boolean deleteById(Long id) {
+        if (usuarioRepository.existsById(id)) {
+            usuarioRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

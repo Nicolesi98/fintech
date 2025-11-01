@@ -26,7 +26,11 @@ public class TransacaoService {
         return transacaoRepository.save(transacao);
     }
 
-    public void deleteById(Long id) {
-        transacaoRepository.deleteById(id);
+    public boolean deleteById(Long id) {
+        if (transacaoRepository.existsById(id)) {
+            transacaoRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

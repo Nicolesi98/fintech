@@ -26,7 +26,11 @@ public class CategoriaService {
         return categoriaRepository.save(categoria);
     }
 
-    public void deleteById(Long id) {
-        categoriaRepository.deleteById(id);
+    public boolean deleteById(Long id) {
+        if (categoriaRepository.existsById(id)) {
+            categoriaRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

@@ -44,24 +44,23 @@ public class TransacaoController {
     @PutMapping("/{id}")
     @Operation(summary = "Atualiza uma transação existente")
     public ResponseEntity<Transacao> updateTransacao(@PathVariable Long id, @RequestBody Transacao transacaoDetails) {
-        Optional<Transacao> transacao = transacaoService.findById(id);
-        if (transacao.isPresent()) {
-            Transacao updatedTransacao = transacao.get();
-            updatedTransacao.setDescricao(transacaoDetails.getDescricao());
-            updatedTransacao.setValor(transacaoDetails.getValor());
-            updatedTransacao.setTipo(transacaoDetails.getTipo());
-            updatedTransacao.setConta(transacaoDetails.getConta());
-            updatedTransacao.setCategoria(transacaoDetails.getCategoria());
-            return ResponseEntity.ok(transacaoService.save(updatedTransacao));
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return transacaoService.findById(id).map(transacao -> {
+            transacao.setDescricao(transacaoDetails.getDescricao());
+            transacao.setValor(transacaoDetails.getValor());
+            transacao.setTipo(transacaoDetails.getTipo());
+            transacao.setConta(transacaoDetails.getConta());
+            transacao.setCategoria(transacaoDetails.getCategoria());
+            return ResponseEntity.ok(transacaoService.save(transacao));
+        }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Deleta uma transação")
     public ResponseEntity<Void> deleteTransacao(@PathVariable Long id) {
-        transacaoService.deleteById(id);
-        return ResponseEntity.noContent().build();
+        if (transacaoService.deleteById(id)) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

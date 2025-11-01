@@ -44,7 +44,7 @@ public class Meta {
     @Schema(description = "Valor atual economizado para a meta", example = "1500.00")
     private BigDecimal valorAtual = BigDecimal.ZERO;
 
-    @NotBlank(message = "Status da meta não pode ser nulo")
+    @NotNull(message = "Status da meta não pode ser nulo")
     @Column(name = "STATUS_META", nullable = false)
     @Enumerated(EnumType.STRING)
     @Schema(description = "Status da meta", example = "EM_ANDAMENTO")
