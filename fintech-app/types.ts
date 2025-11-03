@@ -1,16 +1,23 @@
+
 export interface Categoria {
   id?: number;
   nomeCategoria: string;
-  tipoCategoria: string;
+  tipoCategoria: 'Receita' | 'Despesa';
 }
 
 export interface Conta {
   id?: number;
   agencia: number;
   numero: number;
-  tipoConta: "Conta Corrente" | "Conta Poupança" | "Conta Salário";
+  tipoConta: 'CORRENTE' | 'POUPANCA' | 'SALARIO';
   saldo: number;
   dataCriacao?: string;
+}
+
+export enum StatusMeta {
+    ATIVA = "ATIVA",
+    CONCLUIDA = "CONCLUIDA",
+    CANCELADA = "CANCELADA",
 }
 
 export interface Meta {
@@ -19,7 +26,7 @@ export interface Meta {
   dataCriacao?: string;
   valorAlvo: number;
   valorAtual: number;
-  status: "Ativa" | "Concluída" | "Cancelada";
+  status: StatusMeta;
   dataAlvo: string;
   categoria?: Categoria;
 }
@@ -29,7 +36,7 @@ export interface Transacao {
   descricao: string;
   dataCriacao?: string;
   valor: number;
-  tipo: "Pendente" | "Concluída" | "Cancelada";
+  tipo: 'Receita' | 'Despesa';
   conta?: Conta;
   categoria?: Categoria;
 }
@@ -38,13 +45,13 @@ export interface Usuario {
   id?: number;
   nome: string;
   email: string;
-  senha?: string; // Senha é opcional no retorno
+  senha?: string;
   dataCadastro?: string;
   contas?: Conta[];
   metas?: Meta[];
 }
 
-export interface Login {
+export interface LoginRequest {
   email: string;
   senha?: string;
 }

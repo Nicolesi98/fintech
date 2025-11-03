@@ -1,45 +1,51 @@
-# Fintech App - Gerenciador Financeiro
+# Fintech App
 
-Este é o frontend do aplicativo de gerenciamento financeiro, desenvolvido com Next.js, TypeScript e Tailwind CSS.
+Este é um projeto de aplicativo de fintech desenvolvido com React e Vite.
+
+## Tecnologias
+
+As seguintes tecnologias foram utilizadas no desenvolvimento deste projeto:
+
+*   **React:** Biblioteca para construção de interfaces de usuário.
+*   **Vite:** Ferramenta de build para desenvolvimento web moderno.
+*   **TypeScript:** Superset de JavaScript que adiciona tipagem estática.
+*   **React Router:** Para gerenciamento de rotas na aplicação.
 
 ## Pré-requisitos
 
-Antes de começar, certifique-se de ter o seguinte software instalado em sua máquina:
+Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+*   [Node.js](https://nodejs.org/en/)
+*   [NPM](https://www.npmjs.com/) ou [Yarn](https://yarnpkg.com/)
+*   O projeto backend deve estar em execução na porta 8080: `localhost:8080`
 
-- [Node.js](https://nodejs.org/en/) (versão 18.x ou superior)
-- [npm](https://www.npmjs.com/) (geralmente vem com o Node.js)
+## Instalação
 
-## Como Executar Localmente
+1.  Clone o repositório:
+    ```bash
+    git clone <url-do-repositorio>
+    ```
+2.  Acesse a pasta do projeto:
+    ```bash
+    cd fintech-app
+    ```
+3.  Instale as dependências:
+    ```bash
+    npm install
+    ```
 
-Siga os passos abaixo para configurar e executar o projeto em seu ambiente de desenvolvimento.
+## Comandos
 
-### 1. Clone o Repositório
+*   Para iniciar o servidor de desenvolvimento:
+    ```bash
+    npm run dev
+    ```
 
-Primeiro, clone este repositório para a sua máquina local (se ainda não o fez).
+*   Para compilar o projeto para produção:
+    ```bash
+    npm run build
+    ```
 
-### 2. Instale as Dependências
-
-Navegue até o diretório do projeto `fintech-app` e instale todas as dependências necessárias:
-
-```bash
-cd fintech-app
-npm install
-```
-
-### 3. Inicie o Servidor de Desenvolvimento
-
-Após a instalação das dependências, inicie o servidor de desenvolvimento do Next.js:
-
-```bash
-npm run dev
-```
-
-O aplicativo estará disponível em [http://localhost:3000](http://localhost:3000).
-
----
-
-### **⚠️ Importante: Dependência do Backend**
-
-Este é um projeto de frontend que consome uma API para funcionar corretamente. Para que a autenticação (login/cadastro) e todas as funcionalidades de CRUD (contas, metas, transações) operem como esperado, **é essencial que o servidor do backend esteja em execução na porta `8080`**.
-
-Certifique-se de que o backend está rodando em `http://localhost:8080` antes de usar a aplicação.
+*   Para visualizar a build de produção:
+    ```bash
+    npm run preview
+    ```
