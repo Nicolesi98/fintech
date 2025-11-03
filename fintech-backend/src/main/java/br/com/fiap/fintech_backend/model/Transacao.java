@@ -37,9 +37,8 @@ public class Transacao {
 
     @NotNull(message = "Tipo da transação não pode ser nulo")
     @Column(name = "TIPO_TRANSACAO", nullable = false)
-    @Enumerated(EnumType.STRING)
     @Schema(description = "Tipo da transação", example = "DEBITO")
-    private StatusTransacao tipo;
+    private String tipo;
 
     @ManyToOne
     @JoinColumn(name = "FK_CONTA_ID", referencedColumnName = "ID", nullable = false)

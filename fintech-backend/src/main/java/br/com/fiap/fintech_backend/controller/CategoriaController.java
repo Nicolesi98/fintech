@@ -15,6 +15,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/categorias")
 @Tag(name = "Categorias", description = "Operações relacionadas a categorias de transações")
+@CrossOrigin("http://localhost:3000")
 public class CategoriaController {
 
     @Autowired

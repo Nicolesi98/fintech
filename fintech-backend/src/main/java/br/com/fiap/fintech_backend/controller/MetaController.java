@@ -15,16 +15,17 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/metas")
 @Tag(name = "Metas", description = "Operações relacionadas a metas financeiras")
+@CrossOrigin("http://localhost:3000")
 public class MetaController {
 
     @Autowired
     private MetaService metaService;
 
-    @GetMapping
+    @GetMapping("/usuario/{userId}")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Lista todas as metas")
-    public List<Meta> getAllMetas() {
-        return metaService.findAll();
+    public List<Meta> getAllMetas(@PathVariable Long userId) {
+        return metaService.findAll(userId);
     }
 
     @GetMapping("/{id}")
@@ -34,11 +35,11 @@ public class MetaController {
         return meta.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping
+    @PostMapping("/{userId}")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Cria uma nova meta")
-    public Meta createMeta(@RequestBody Meta meta) {
-        return metaService.save(meta);
+    public Meta createMeta(@PathVariable Long userId, @RequestBody Meta meta) {
+        return metaService.save(userId, meta);
     }
 
     @PutMapping("/{id}")
@@ -51,7 +52,7 @@ public class MetaController {
             meta.setStatus(metaDetails.getStatus());
             meta.setDataAlvo(metaDetails.getDataAlvo());
             meta.setCategoria(metaDetails.getCategoria());
-            return ResponseEntity.ok(metaService.save(meta));
+            return ResponseEntity.ok(metaService.update(meta));
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 

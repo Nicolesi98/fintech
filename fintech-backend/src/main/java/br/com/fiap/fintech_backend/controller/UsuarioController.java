@@ -20,6 +20,7 @@ import static br.com.fiap.fintech_backend.model.MessageError.SENHA_INCORRETA;
 @RestController
 @RequestMapping("/usuarios")
 @Tag(name = "Usuários", description = "Operações relacionadas a usuários")
+@CrossOrigin("http://localhost:3000")
 public class UsuarioController {
 
     @Autowired
