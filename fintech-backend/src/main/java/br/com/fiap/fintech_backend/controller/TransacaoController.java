@@ -15,16 +15,17 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/transacoes")
 @Tag(name = "Transacões", description = "Operações relacionadas a transações financeiras")
+@CrossOrigin("http://localhost:3000")
 public class TransacaoController {
 
     @Autowired
     private TransacaoService transacaoService;
 
-    @GetMapping
+    @GetMapping("/usuario/{userId}")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Lista todas as transações")
-    public List<Transacao> getAllTransacoes() {
-        return transacaoService.findAll();
+    public List<Transacao> getAllTransacoes(@PathVariable Long userId) {
+        return transacaoService.findAll(userId);
     }
 
     @GetMapping("/{id}")

@@ -92,7 +92,14 @@ public class UsuarioServiceTest {
     @Test
     public void testDeleteById() {
         when(usuarioRepository.existsById(1L)).thenReturn(true);
-        usuarioService.deleteById(1L);
+        assertTrue(usuarioService.deleteById(1L));
         verify(usuarioRepository, times(1)).deleteById(1L);
+    }
+
+    @Test
+    public void testDeleteByIdNotFound() {
+        when(usuarioRepository.existsById(1L)).thenReturn(false);
+        assertFalse(usuarioService.deleteById(1L));
+        verify(usuarioRepository, never()).deleteById(1L);
     }
 }

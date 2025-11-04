@@ -11,8 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Collections;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -46,7 +45,14 @@ public class CategoriaServiceTest {
     @Test
     public void testDeleteById() {
         when(categoriaRepository.existsById(1L)).thenReturn(true);
-        categoriaService.deleteById(1L);
+        assertTrue(categoriaService.deleteById(1L));
         verify(categoriaRepository, times(1)).deleteById(1L);
+    }
+
+    @Test
+    public void testDeleteByIdNotFound() {
+        when(categoriaRepository.existsById(1L)).thenReturn(false);
+        assertFalse(categoriaService.deleteById(1L));
+        verify(categoriaRepository, never()).deleteById(1L);
     }
 }

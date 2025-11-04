@@ -32,8 +32,8 @@ public class ContaControllerTest {
 
     @Test
     public void testGetAllContas() throws Exception {
-        when(contaService.findAll()).thenReturn(Collections.singletonList(new Conta()));
-        mockMvc.perform(get("/contas"))
+        when(contaService.findAll(1L)).thenReturn(Collections.singletonList(new Conta()));
+        mockMvc.perform(get("/contas/usuario/1"))
                 .andExpect(status().isOk());
     }
 
@@ -54,8 +54,8 @@ public class ContaControllerTest {
     @Test
     public void testCreateConta() throws Exception {
         Conta conta = new Conta();
-        when(contaService.save(any(Conta.class))).thenReturn(conta);
-        mockMvc.perform(post("/contas")
+        when(contaService.save(any(Long.class), any(Conta.class))).thenReturn(conta);
+        mockMvc.perform(post("/contas/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(conta)))
                 .andExpect(status().isCreated());
@@ -65,7 +65,7 @@ public class ContaControllerTest {
     public void testUpdateConta() throws Exception {
         Conta conta = new Conta();
         when(contaService.findById(1L)).thenReturn(Optional.of(new Conta()));
-        when(contaService.save(any(Conta.class))).thenReturn(conta);
+        when(contaService.update(any(Conta.class))).thenReturn(conta);
         mockMvc.perform(put("/contas/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(conta)))

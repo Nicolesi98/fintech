@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fintech Meta+</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#32435F", // Azul escuro
+              "secondary": "#A67F78", // Marrom claro / Terracota
+              "text-primary": "#32435F",
+              "text-secondary": "#8F8681", // Cinza/Marrom
+              "background-light": "#E1DCD9", // Bege claro
+              "surface-light": "#fdfbfb",
+              "border-color": "#D4CBC8",
+              "income": "#2E7D32",
+              "expense": "#C62828",
+            },
+            fontFamily: {
+              "display": ["Manrope", "sans-serif"]
+            },
+            borderRadius: {
+              "DEFAULT": "0.5rem",
+              "lg": "0.75rem",
+              "xl": "1rem",
+              "full": "9999px"
+            },
+          },
+        },
+      }
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://unpkg.com/react-dom@18.2.0/",
+    "react/": "https://unpkg.com/react@18.2.0/",
+    "react": "https://unpkg.com/react@18.2.0/umd/react.development.js",
+    "react-router-dom": "https://unpkg.com/react-router-dom@6.22.3/dist/main.js"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-background-light font-display">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

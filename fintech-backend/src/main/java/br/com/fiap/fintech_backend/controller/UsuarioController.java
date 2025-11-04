@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import static br.com.fiap.fintech_backend.model.MessageError.SENHA_INCORRETA;
 @RestController
 @RequestMapping("/usuarios")
 @Tag(name = "Usuários", description = "Operações relacionadas a usuários")
+@CrossOrigin("http://localhost:3000")
 public class UsuarioController {
 
     @Autowired
@@ -49,7 +51,7 @@ public class UsuarioController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Usuário criado com sucesso")
     })
-    public Usuario createUsuario(@RequestBody Usuario usuario) {
+    public Usuario createUsuario(@Valid @RequestBody Usuario usuario) {
         return usuarioService.save(usuario);
     }
 
@@ -77,7 +79,7 @@ public class UsuarioController {
             @ApiResponse(responseCode = "200", description = "Usuário atualizado com sucesso"),
             @ApiResponse(responseCode = "404", description = "Usuário não encontrado")
     })
-    public ResponseEntity<Usuario> updateUsuario(@PathVariable Long id, @RequestBody Usuario usuarioDetails) {
+    public ResponseEntity<Usuario> updateUsuario(@PathVariable Long id, @Valid @RequestBody Usuario usuarioDetails) {
         return usuarioService.findById(id).map(usuario -> {
             usuario.setNome(usuarioDetails.getNome());
             usuario.setEmail(usuarioDetails.getEmail());

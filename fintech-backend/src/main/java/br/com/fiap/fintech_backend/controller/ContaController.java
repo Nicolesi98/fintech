@@ -15,16 +15,17 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/contas")
 @Tag(name = "Contas", description = "Operações relacionadas a contas bancárias")
+@CrossOrigin("http://localhost:3000")
 public class ContaController {
 
     @Autowired
     private ContaService contaService;
 
-    @GetMapping
+    @GetMapping("/usuario/{userId}")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Lista todas as contas")
-    public List<Conta> getAllContas() {
-        return contaService.findAll();
+    public List<Conta> getAllContas(@PathVariable Long userId) {
+        return contaService.findAll(userId);
     }
 
     @GetMapping("/{id}")
@@ -34,11 +35,11 @@ public class ContaController {
         return conta.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping
+    @PostMapping("/{userId}")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Cria uma nova conta")
-    public Conta createConta(@RequestBody Conta conta) {
-        return contaService.save(conta);
+    public Conta createConta(@PathVariable Long userId, @RequestBody Conta conta) {
+        return contaService.save(userId, conta);
     }
 
     @PutMapping("/{id}")
@@ -49,7 +50,7 @@ public class ContaController {
             conta.setNumero(contaDetails.getNumero());
             conta.setTipoConta(contaDetails.getTipoConta());
             conta.setSaldo(contaDetails.getSaldo());
-            return ResponseEntity.ok(contaService.save(conta));
+            return ResponseEntity.ok(contaService.update(conta));
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 

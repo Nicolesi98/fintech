@@ -28,7 +28,7 @@ public class TransacaoTest {
         Transacao transacao = new Transacao();
         transacao.setDescricao("Almoço no restaurante");
         transacao.setValor(new BigDecimal("50.00"));
-        transacao.setTipo(StatusTransacao.PENDENTE);
+        transacao.setTipo("Despesa");
         transacao.setConta(new Conta());
         transacao.setCategoria(new Categoria());
 
@@ -40,7 +40,7 @@ public class TransacaoTest {
     public void testDescricaoNula() {
         Transacao transacao = new Transacao();
         transacao.setValor(new BigDecimal("50.00"));
-        transacao.setTipo(StatusTransacao.PENDENTE);
+        transacao.setTipo("Despesa");
         transacao.setConta(new Conta());
         transacao.setCategoria(new Categoria());
 
@@ -53,7 +53,7 @@ public class TransacaoTest {
     public void testValorNulo() {
         Transacao transacao = new Transacao();
         transacao.setDescricao("Almoço no restaurante");
-        transacao.setTipo(StatusTransacao.PENDENTE);
+        transacao.setTipo("Despesa");
         transacao.setConta(new Conta());
         transacao.setCategoria(new Categoria());
 

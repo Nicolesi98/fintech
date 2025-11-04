@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.Collections;
 import java.util.Optional;
@@ -57,11 +58,22 @@ public class UsuarioControllerTest {
     @Test
     public void testCreateUsuario() throws Exception {
         Usuario usuario = new Usuario();
+        usuario.setNome("Test User Created");
+        usuario.setEmail("test_created@test.com");
+        usuario.setSenha("password_created");
         when(usuarioService.save(any(Usuario.class))).thenReturn(usuario);
         mockMvc.perform(post("/usuarios")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(usuario)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(usuario)))
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    public void testCreateUsuarioComBodyInvalido() throws Exception {
+        mockMvc.perform(post("/usuarios")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{ \"nome\": \"Teste\" }"))
+                .andExpect(status().isBadRequest());
     }
 
     @Test
@@ -104,6 +116,9 @@ public class UsuarioControllerTest {
     @Test
     public void testUpdateUsuario() throws Exception {
         Usuario usuario = new Usuario();
+        usuario.setNome("Test User 1");
+        usuario.setEmail("test1@test.com");
+        usuario.setSenha("password1");
         when(usuarioService.findById(1L)).thenReturn(Optional.of(new Usuario()));
         when(usuarioService.save(any(Usuario.class))).thenReturn(usuario);
         mockMvc.perform(put("/usuarios/1")
@@ -115,6 +130,9 @@ public class UsuarioControllerTest {
     @Test
     public void testUpdateUsuarioNotFound() throws Exception {
         Usuario usuario = new Usuario();
+        usuario.setNome("Test User");
+        usuario.setEmail("test@test.com");
+        usuario.setSenha("password");
         when(usuarioService.findById(1L)).thenReturn(Optional.empty());
         mockMvc.perform(put("/usuarios/1")
                 .contentType(MediaType.APPLICATION_JSON)
