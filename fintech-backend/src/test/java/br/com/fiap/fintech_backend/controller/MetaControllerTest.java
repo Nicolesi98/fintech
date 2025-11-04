@@ -32,8 +32,8 @@ public class MetaControllerTest {
 
     @Test
     public void testGetAllMetas() throws Exception {
-        when(metaService.findAll()).thenReturn(Collections.singletonList(new Meta()));
-        mockMvc.perform(get("/metas"))
+        when(metaService.findAll(1L)).thenReturn(Collections.singletonList(new Meta()));
+        mockMvc.perform(get("/metas/usuario/1"))
                 .andExpect(status().isOk());
     }
 
@@ -54,8 +54,8 @@ public class MetaControllerTest {
     @Test
     public void testCreateMeta() throws Exception {
         Meta meta = new Meta();
-        when(metaService.save(any(Meta.class))).thenReturn(meta);
-        mockMvc.perform(post("/metas")
+        when(metaService.save(any(Long.class), any(Meta.class))).thenReturn(meta);
+        mockMvc.perform(post("/metas/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(meta)))
                 .andExpect(status().isCreated());
@@ -65,7 +65,7 @@ public class MetaControllerTest {
     public void testUpdateMeta() throws Exception {
         Meta meta = new Meta();
         when(metaService.findById(1L)).thenReturn(Optional.of(new Meta()));
-        when(metaService.save(any(Meta.class))).thenReturn(meta);
+        when(metaService.update(any(Meta.class))).thenReturn(meta);
         mockMvc.perform(put("/metas/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(meta)))

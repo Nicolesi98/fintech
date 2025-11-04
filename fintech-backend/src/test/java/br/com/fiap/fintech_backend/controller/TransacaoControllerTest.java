@@ -32,8 +32,8 @@ public class TransacaoControllerTest {
 
     @Test
     public void testGetAllTransacoes() throws Exception {
-        when(transacaoService.findAll()).thenReturn(Collections.singletonList(new Transacao()));
-        mockMvc.perform(get("/transacoes"))
+        when(transacaoService.findAll(1L)).thenReturn(Collections.singletonList(new Transacao()));
+        mockMvc.perform(get("/transacoes/usuario/1"))
                 .andExpect(status().isOk());
     }
 
